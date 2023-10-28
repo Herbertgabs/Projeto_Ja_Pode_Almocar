@@ -14,16 +14,16 @@
 
 ### Execução o programa:
 
-- Escolha a opção apropriada no menu:
+- Siga as instruções:
 
-1: Adicionar doador
-2: Exibir registro dos doadores
-3: Procurar por um doador
-4: Salvar arquivo
-5: Carregar arquivo
-6: Encontrar um ganhador com base nos números inseridos
-0: Sair
-Siga as instruções para cada opção.
+##### 1: Adicionar doador
+##### 2: Exibir registro dos doadores
+##### 3: Procurar por um doador
+##### 4: Salvar arquivo
+##### 5: Carregar arquivo
+##### 6: Encontrar um ganhador com base nos números inseridos
+##### 0: Sair
+
 
 
 

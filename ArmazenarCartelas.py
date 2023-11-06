@@ -4,6 +4,7 @@ import os
 def adicionarCartela():
     id_cartela = int(input("Insira o ID da cartela: "))
     nome = input("Insira nome do comprador: ")
+    email = input("Insira o E-mail: ")
     numeros = input("Insira os numeros das cartelas: ").split()
 
     numeros = [eval(i) for i in numeros]
@@ -11,7 +12,7 @@ def adicionarCartela():
 
     print(nome + " foi adicionado(a)")
 
-    doadores.append({"id": id_cartela, "nome": nome, "numeros": numeros})
+    doadores.append({"id": id_cartela, "nome": nome, "email": email, "numeros": numeros})
 
 def procurarCartela():
     for doador in doadores:
@@ -20,7 +21,7 @@ def procurarCartela():
 def procurarDoador(id_cartela):
     for doador in doadores:
         if doador['id'] == id_cartela:
-            print(f"Encontrado: {doador['nome']} com os números {doador['numeros']}")
+            print(f"Encontrado: {doador['nome']}, email: {doador['email']} com os números {doador['numeros']}")
             return
     print(f"Doador com ID {id_cartela} não encontrado")
 
@@ -31,7 +32,7 @@ def salvarRegistrosTxt():
     try:
         with open('lista_de_doadores.txt', 'w') as arquivo_de_doadores:
             for doador in doadores:
-                linha = f"{doador['id']}, {doador['nome']}, {', '.join(map(str, doador['numeros']))}\n"
+                linha = f"{doador['id']}, {doador['nome']},{doador['email']} {', '.join(map(str, doador['numeros']))}\n"
                 arquivo_de_doadores.write(linha)
 
         print("Arquivo salvo com sucesso.")
@@ -53,16 +54,17 @@ def carregarRegistroTxt():
                 for i in range(0, len(doador)):
                     doador[i] = doador[i].strip().replace("[", "").replace("]", "")
                 listaDeRetorno.append(doador)
-
         doadores = []  
         for lista in listaDeRetorno:
-            registroDeDoador = {"id": 0, "nome": "", "numeros": []}
+            registroDeDoador = {"id": 0, "nome": "", "email": "", "numeros": []}
             for i in range(0, len(lista)):
                 if i == 0:
                     registroDeDoador["id"] = int(lista[0])
                 elif i == 1:
                     registroDeDoador["nome"] = lista[1]
-                elif i > 1:
+                elif i == 2:
+                    registroDeDoador["email"] = lista[2]
+                elif i > 2:
                     registroDeDoador['numeros'].append(int(lista[i]))
             doadores.append(registroDeDoador)
         print("Arquivo carregado")
@@ -75,7 +77,7 @@ def encontrarGanhador():
     
     for doador in doadores:
         if set(numeros_inseridos).issubset(set(doador['numeros'])):
-            print(f"Ganhador: {doador['nome']} com os números {doador['numeros']}")
+            print(f"Ganhador: {doador['nome']}, email: {doador['email']}, com os números {doador['numeros']}")
             return
     print(f"Nenhum ganhador encontrado com os números inseridos.")
 doadores = []

@@ -32,7 +32,7 @@ def salvarRegistrosTxt():
     try:
         with open('lista_de_doadores.txt', 'w') as arquivo_de_doadores:
             for doador in doadores:
-                linha = f"{doador['id']}, {doador['nome']},{doador['email']} {', '.join(map(str, doador['numeros']))}\n"
+                linha = f"{doador['id']}, {doador['nome']},{doador['email']},{', '.join(map(str, doador['numeros']))}\n"
                 arquivo_de_doadores.write(linha)
 
         print("Arquivo salvo com sucesso.")
@@ -72,24 +72,44 @@ def carregarRegistroTxt():
         print("O arquivo 'lista_de_doadores.txt' não foi encontrado.")
         
 def encontrarGanhador():
-    numeros_inseridos = input("Digite os números para encontrar um ganhador (separados por espaços): ").split()
-    numeros_inseridos = [int(numero) for numero in numeros_inseridos]
-    
-    for doador in doadores:
-        if set(numeros_inseridos).issubset(set(doador['numeros'])):
-            print(f"Ganhador: {doador['nome']}, email: {doador['email']}, com os números {doador['numeros']}")
+    numeros_inseridos = []
+    maior_acerto = 0
+    melhor_participante = None
+    while True:
+        input_numeros = input("Digite os números para encontrar um ganhador (separados por espaços): ")
+        novos_numeros = list(map(int, input_numeros.split()))
+        numeros_inseridos.extend(novos_numeros)
+
+        for doador in doadores:
+            acertos = len(set(numeros_inseridos).intersection(set(doador['numeros'])))
+            if acertos > maior_acerto:
+                maior_acerto = acertos
+                melhor_participante = doador['nome']
+
+        if maior_acerto == 24: ## Insira a quantidade de numeros no bingo 
+            print(f"Bingo! Temos um vencedor:")
+            print(f"Ganhador: {melhor_participante} com o maior acerto de 24 números!")
             return
-    print(f"Nenhum ganhador encontrado com os números inseridos.")
+
+        print(f"A pessoa com o maior acerto até agora acertou {maior_acerto} números. Continuando...")
+
+
 doadores = []
+aviso = False
 while True:
+    if not aviso: 
+        print("AVISO - CARREGUE O ARQUIVO ANTES DE TUDO!\n")
+        aviso = True
+    
     print(
           "1. Adicionar doador\n" +
           "2. Exibir Registro dos doadores\n" +
           "3. Procurar por um doador\n" +
-          "4. Salvar Arquivo\n" +
-          "5. Carregar Arquivo\n" +
+          "4. Carregar Arquivo\n" +
+          "5. Salvar Arquivo\n" +
           "6. Encontrar ganhador\n"
           "0. Sair")
+    
 
     opcao = input("Digite sua escolha (0-6): ")
 
@@ -102,10 +122,14 @@ while True:
     elif opcao == "3":
         procurarDoador (int(input("Digite o id_cartela: ")))
 
-    elif opcao == "4":
-        salvarRegistrosTxt()
-
     elif opcao == "5":
+        confirm = input("Digite SIM para confirmar: ")
+        if confirm == "Sim" or confirm == 'sim' or confirm == "S" or confirm == "s" or confirm == "SIM":
+            salvarRegistrosTxt()
+        else:
+            print("Arquivo não foi salvo!")
+
+    elif opcao == "4":
         carregarRegistroTxt()
 
     elif opcao == "6":

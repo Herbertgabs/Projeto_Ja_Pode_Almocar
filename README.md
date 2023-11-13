@@ -1,7 +1,7 @@
 
 # Já pode almussar?
 
-- Esta é uma aplicação de para armazenar doadores do bingo que com números associados e procurar ganhadores com base nos números inseridos.
+- Esta é uma aplicação para armazenar doadores do bingo que com números associados e procurar ganhadores com base nos números inseridos.
 #### OBS: Recomendo executar o programa utilizando terminal BASH 
 #### Utilize o comando no terminal para executar: py ArmazenarCartelas.py 
 

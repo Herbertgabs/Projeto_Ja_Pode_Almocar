@@ -1,5 +1,5 @@
 
-# Já pode almussar?
+# Já pode almoçar?
 
 - Esta é uma aplicação para armazenar doadores do bingo que com números associados e procurar ganhadores com base nos números inseridos.
 #### OBS: Recomendo executar o programa utilizando terminal BASH 
